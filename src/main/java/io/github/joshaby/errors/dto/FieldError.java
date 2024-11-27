@@ -1,4 +1,4 @@
-package io.github.joshaby.repository.errors.dto;
+package io.github.joshaby.errors.dto;
 
 public record FieldError(String field, String message) {
 }

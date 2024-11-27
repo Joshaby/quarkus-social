@@ -3,7 +3,7 @@ package io.github.joshaby.controllers;
 import io.github.joshaby.dto.UserRequest;
 import io.github.joshaby.model.User;
 import io.github.joshaby.repository.UserRepository;
-import io.github.joshaby.repository.errors.dto.ResponseError;
+import io.github.joshaby.errors.dto.ResponseError;
 import jakarta.transaction.Transactional;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;

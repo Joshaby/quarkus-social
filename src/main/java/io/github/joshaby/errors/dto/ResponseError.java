@@ -1,4 +1,4 @@
-package io.github.joshaby.repository.errors.dto;
+package io.github.joshaby.errors.dto;
 
 import jakarta.validation.ConstraintViolation;
 import lombok.AllArgsConstructor;

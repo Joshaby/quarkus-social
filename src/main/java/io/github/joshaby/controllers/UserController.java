@@ -1,10 +1,9 @@
 package io.github.joshaby.controllers;
 
 import io.github.joshaby.dto.UserRequest;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import io.github.joshaby.model.User;
+import jakarta.transaction.Transactional;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
@@ -14,7 +13,19 @@ import jakarta.ws.rs.core.Response;
 public class UserController {
 
     @POST
+    @Transactional
     public Response create(UserRequest request) {
-        return Response.ok(request).build();
+        User user = new User();
+        user.setName(request.name());
+        user.setName(request.name());
+        user.setAge(request.age());
+        user.persist();
+
+        return Response.ok(user).build();
+    }
+
+    @GET
+    public Response listAll() {
+        return Response.ok(User.listAll()).build();
     }
 }

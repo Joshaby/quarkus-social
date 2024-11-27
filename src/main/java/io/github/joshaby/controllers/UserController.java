@@ -14,7 +14,7 @@ import jakarta.ws.rs.core.Response;
 public class UserController {
 
     @POST
-    public Response createUser(UserRequest request) {
+    public Response create(UserRequest request) {
         return Response.ok(request).build();
     }
 }

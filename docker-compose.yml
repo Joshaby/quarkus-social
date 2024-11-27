@@ -1,0 +1,31 @@
+version: '3.7'
+services:
+  postgres-quarkus-social:
+    image: postgres:17.2-alpine
+    container_name: postgres-quarkus-social
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: quarkus-social
+      POSTGRES_PASSWORD: 1234567
+    ports:
+      - "5432:5432"
+    networks:
+      - network-quarkus-social
+
+  pgadmin-quarkus-social:
+    image: dpage/pgadmin4:8.13.0
+    container_name: pgadmin-quarkus-social
+    environment:
+      PGADMIN_DEFAULT_EMAIL: joshaby@example.com
+      PGADMIN_DEFAULT_PASSWORD: 1234567
+    ports:
+      - "5050:80"
+    depends_on:
+      postgres-quarkus-social:
+        condition: service_started
+    networks:
+      - network-quarkus-social
+
+networks:
+  network-quarkus-social:
+    driver: bridge

@@ -3,8 +3,10 @@ package io.github.joshaby.controllers;
 import io.github.joshaby.dto.UserRequest;
 import io.github.joshaby.model.User;
 import io.github.joshaby.repository.UserRepository;
-import jakarta.inject.Inject;
+import io.github.joshaby.repository.errors.dto.ResponseError;
 import jakarta.transaction.Transactional;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validator;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -12,6 +14,7 @@ import jakarta.ws.rs.core.UriBuilder;
 import lombok.RequiredArgsConstructor;
 
 import java.net.URI;
+import java.util.Set;
 
 @Path("/users")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -21,9 +24,17 @@ public class UserController {
 
     private final UserRepository repository;
 
+    private final Validator validator;
+
     @POST
     @Transactional
     public Response create(UserRequest request) {
+        Set<ConstraintViolation<UserRequest>> violations = validator.validate(request);
+        if (!violations.isEmpty()) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(
+                    ResponseError.createFromValidation("Validation errors", violations)).build();
+        }
+
         User user = new User();
         user.setName(request.name());
         user.setAge(request.age());

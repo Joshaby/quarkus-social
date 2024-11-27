@@ -6,3 +6,10 @@ quarkus:
     jdbc:
       url: jdbc:postgresql://localhost:5432/quarkus-social
       max-size: 16
+
+  hibernate-orm:
+    database:
+      generation: update
+    log:
+      sql: true
+    format-sql: true

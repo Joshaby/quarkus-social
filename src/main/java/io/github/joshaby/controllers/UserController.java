@@ -17,7 +17,6 @@ public class UserController {
     public Response create(UserRequest request) {
         User user = new User();
         user.setName(request.name());
-        user.setName(request.name());
         user.setAge(request.age());
         user.persist();
 

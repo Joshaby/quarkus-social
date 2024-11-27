@@ -1,6 +1,5 @@
 package io.github.joshaby.model;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,7 +12,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class User extends PanacheEntityBase {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

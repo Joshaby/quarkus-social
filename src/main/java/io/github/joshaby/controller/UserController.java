@@ -1,7 +1,7 @@
-package io.github.joshaby.controllers;
+package io.github.joshaby.controller;
 
 import io.github.joshaby.dto.UserRequest;
-import io.github.joshaby.model.User;
+import io.github.joshaby.domain.User;
 import io.github.joshaby.repository.UserRepository;
 import io.github.joshaby.errors.dto.ResponseError;
 import jakarta.transaction.Transactional;

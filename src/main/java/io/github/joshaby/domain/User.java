@@ -1,4 +1,4 @@
-package io.github.joshaby.model;
+package io.github.joshaby.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

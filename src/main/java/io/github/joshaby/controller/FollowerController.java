@@ -1,7 +1,6 @@
 package io.github.joshaby.controller;
 
 import io.github.joshaby.domain.Follower;
-import io.github.joshaby.domain.User;
 import io.github.joshaby.dto.FollowerRequest;
 import io.github.joshaby.repository.FollowerRepository;
 import io.github.joshaby.repository.UserRepository;
@@ -24,12 +23,13 @@ public class FollowerController {
     @PUT
     @Transactional
     public Response followUser(@PathParam("userId") Long userId, FollowerRequest request) {
-        return userRepository.findByIdOptional(userId).map(user -> {
-            User userFollower = userRepository.findById(request.followerId());
-            Follower follower = new Follower(user, userFollower);
-            followerRepository.persist(follower);
+        return userRepository.findByIdOptional(userId).map(
+                        user -> userRepository.findByIdOptional(request.followerId()).map(userFollower -> {
+                            Follower follower = new Follower(user, userFollower);
+                            followerRepository.persist(follower);
 
-            return Response.noContent().build();
-        }).orElse(Response.status(Response.Status.NOT_FOUND).build());
+                            return Response.noContent().build();
+                        }).orElse(Response.status(Response.Status.NOT_FOUND).build()))
+                .orElse(Response.status(Response.Status.NOT_FOUND).build());
     }
 }

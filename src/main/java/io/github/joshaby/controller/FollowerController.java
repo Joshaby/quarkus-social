@@ -2,6 +2,8 @@ package io.github.joshaby.controller;
 
 import io.github.joshaby.domain.Follower;
 import io.github.joshaby.dto.FollowerRequest;
+import io.github.joshaby.dto.FollowerResponse;
+import io.github.joshaby.dto.UserResponse;
 import io.github.joshaby.repository.FollowerRepository;
 import io.github.joshaby.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -10,6 +12,8 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Path("/users/{userId}/followers")
@@ -39,5 +43,22 @@ public class FollowerController {
                             return Response.noContent().build();
                         }).orElse(Response.status(Response.Status.NOT_FOUND).build()))
                 .orElse(Response.status(Response.Status.NOT_FOUND).build());
+    }
+
+    @GET
+    public Response listFollowers(@PathParam("userId") Long userId) {
+
+        return userRepository.findByIdOptional(userId).map(user -> {
+
+            List<Follower> followers = repository.findByUser(user);
+            List<UserResponse> followersResponse = new ArrayList<>();
+            followers.forEach(follower -> {
+                UserResponse userResponse = new UserResponse(
+                        follower.getId().getFollower().getId(), follower.getId().getFollower().getName());
+                followersResponse.add(userResponse);
+            });
+
+            return Response.ok(new FollowerResponse(followersResponse.size(), followersResponse)).build();
+        }).orElse(Response.status(Response.Status.NOT_FOUND).build());
     }
 }

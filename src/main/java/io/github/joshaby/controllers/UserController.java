@@ -22,6 +22,8 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class UserController {
 
+    private final static Integer UNPROCESSABLE_ENTITY = 422;
+
     private final UserRepository repository;
 
     private final Validator validator;
@@ -31,7 +33,7 @@ public class UserController {
     public Response create(UserRequest request) {
         Set<ConstraintViolation<UserRequest>> violations = validator.validate(request);
         if (!violations.isEmpty()) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(
+            return Response.status(UNPROCESSABLE_ENTITY).entity(
                     ResponseError.createFromValidation("Validation errors", violations)).build();
         }
 

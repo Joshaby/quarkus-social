@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class FollowerController {
 
-    private final FollowerRepository followerRepository;
+    private final FollowerRepository repository;
 
     private final UserRepository userRepository;
 
@@ -25,9 +25,10 @@ public class FollowerController {
     public Response followUser(@PathParam("userId") Long userId, FollowerRequest request) {
         return userRepository.findByIdOptional(userId).map(
                         user -> userRepository.findByIdOptional(request.followerId()).map(userFollower -> {
-                            Follower follower = new Follower(user, userFollower);
-                            followerRepository.persist(follower);
-
+                            if (!repository.follows(user, userFollower)) {
+                                Follower follower = new Follower(user, userFollower);
+                                repository.persist(follower);
+                            }
                             return Response.noContent().build();
                         }).orElse(Response.status(Response.Status.NOT_FOUND).build()))
                 .orElse(Response.status(Response.Status.NOT_FOUND).build());

@@ -1,0 +1,253 @@
+_type: export
+__export_format: 4
+__export_date: 2024-11-28T14:23:21.020Z
+__export_source: insomnia.desktop.app:v2022.4.1
+resources:
+  - _id: req_fb09f69971024da2b1c23e9e0b9d075c
+    parentId: fld_da93955bfe4a40909481a8f98fb77647
+    modified: 1732803435888
+    created: 1732803273621
+    url: "{{baseUrl}}/users/6/followers"
+    name: Follow user
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"followerId": 3
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_22b96a7a10d94887bc66f62b05090105
+    authentication: {}
+    metaSortKey: -1732803273621
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_da93955bfe4a40909481a8f98fb77647
+    parentId: wrk_8a2438b56da44451bbdb73a6eb338252
+    modified: 1732803247676
+    created: 1732803247676
+    name: Followers
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1732803247676
+    _type: request_group
+  - _id: wrk_8a2438b56da44451bbdb73a6eb338252
+    parentId: null
+    modified: 1732673211285
+    created: 1732673211285
+    name: Quarkus social requests
+    description: ""
+    scope: collection
+    _type: workspace
+  - _id: req_c849fe9ece694ca1898c81191274dfec
+    parentId: fld_5756aa6f3100408a82a0f16d4b14c5ee
+    modified: 1732799200347
+    created: 1732799184419
+    url: "{{baseUrl}}/users/6/posts/2"
+    name: Find by id
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1732799184419
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_5756aa6f3100408a82a0f16d4b14c5ee
+    parentId: wrk_8a2438b56da44451bbdb73a6eb338252
+    modified: 1732759305318
+    created: 1732759305318
+    name: Posts
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1732759305318
+    _type: request_group
+  - _id: req_ce51fbd7219a41008902bd9768eee871
+    parentId: fld_5756aa6f3100408a82a0f16d4b14c5ee
+    modified: 1732799203845
+    created: 1732760523797
+    url: "{{baseUrl}}/users/6/posts"
+    name: List all
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1732760523797
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_78246eda245e40ce93adcdd58281db7e
+    parentId: fld_5756aa6f3100408a82a0f16d4b14c5ee
+    modified: 1732760547783
+    created: 1732759306869
+    url: "{{baseUrl}}/users/6/posts"
+    name: Create
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"text": "Boa noite meus amigos"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_0b84cd7f74674a5e8999eb77df8a34ce
+    authentication: {}
+    metaSortKey: -1732759306870
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_417e1534726947a9b58e09e4e493bd84
+    parentId: fld_c1a1bcbe53654b96b1910b9188e15873
+    modified: 1732737705764
+    created: 1732719686384
+    url: "{{baseUrl}}/users/5"
+    name: New Request
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1732719686384
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_c1a1bcbe53654b96b1910b9188e15873
+    parentId: wrk_8a2438b56da44451bbdb73a6eb338252
+    modified: 1732673219538
+    created: 1732673219538
+    name: Users
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1732673219538
+    _type: request_group
+  - _id: req_2380325199e3488e955b0ebef41eb134
+    parentId: fld_c1a1bcbe53654b96b1910b9188e15873
+    modified: 1732737701477
+    created: 1732718232309
+    url: "{{baseUrl}}/users/5"
+    name: Update
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"name": "José Henrique100",
+        	"age": 23
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_27ac0e8c5ac544019b7f4ee538511cf3
+    authentication: {}
+    metaSortKey: -1732718232309
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_d1402b9ec4a24ccc9992b0c70daf1015
+    parentId: fld_c1a1bcbe53654b96b1910b9188e15873
+    modified: 1732759355160
+    created: 1732673221883
+    url: "{{baseUrl}}/users"
+    name: Create
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"name": "José Henrique2",
+        	"age": 14
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_255ab1b32585469d88e977ac05c37222
+    authentication: {}
+    metaSortKey: -1732673221883
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_42b9a5890e36e8a6bfa5ab3b5dd25ef6a280feab
+    parentId: wrk_8a2438b56da44451bbdb73a6eb338252
+    modified: 1732718261603
+    created: 1732673211320
+    name: Base Environment
+    data:
+      baseUrl: http://localhost:8080
+    dataPropertyOrder:
+      "&":
+        - baseUrl
+    color: null
+    isPrivate: false
+    metaSortKey: 1732673211320
+    _type: environment
+  - _id: jar_42b9a5890e36e8a6bfa5ab3b5dd25ef6a280feab
+    parentId: wrk_8a2438b56da44451bbdb73a6eb338252
+    modified: 1732673211327
+    created: 1732673211327
+    name: Default Jar
+    cookies: []
+    _type: cookie_jar
+  - _id: spc_a618253b5cbc4cbda4e26a670267ba05
+    parentId: wrk_8a2438b56da44451bbdb73a6eb338252
+    modified: 1732673211292
+    created: 1732673211292
+    fileName: Quarkus social requests
+    contents: ""
+    contentType: yaml
+    _type: api_spec

@@ -12,3 +12,11 @@ CREATE TABLE POSTS (
     created_at timestamp not null,
     user_id bigint not null references USERS(id)
 )
+
+CREATE TABLE FOLLOWERS (
+    user_id bigserial not null,
+    follower_id bigserial not null,
+    primary key (user_id, follower_id),
+    foreign key (user_id) references USERS(id),
+    foreign key (follower_id) references USERS(id)
+)

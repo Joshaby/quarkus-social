@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 import java.net.URI;
 import java.util.List;
 
-@Path("/users/{id}/posts")
+@Path("/users/{userId}/posts")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 @RequiredArgsConstructor
@@ -26,8 +26,8 @@ public class PostController {
 
     @POST
     @Transactional
-    public Response create(@PathParam("id") Long id, PostRequest request, @Context UriInfo uriInfo) {
-        return userRepository.findByIdOptional(id).map(user -> {
+    public Response create(@PathParam("userId") Long userId, PostRequest request, @Context UriInfo uriInfo) {
+        return userRepository.findByIdOptional(userId).map(user -> {
             Post post = new Post();
             post.setText(request.text());
             post.setUser(user);
@@ -40,8 +40,20 @@ public class PostController {
     }
 
     @GET
-    public Response listAll(@PathParam("id") Long id) {
-        return userRepository.findByIdOptional(id).map(
+    @Path("/{postId}")
+    public Response findById(@PathParam("userId") Long userId, @PathParam("postId") Long postId) {
+        return userRepository.findByIdOptional(userId).map(
+                user -> repository.findByIdOptional(postId).map(
+                        post -> {
+                            PostResponse response = new PostResponse(post.getText(), post.getCreatedAt());
+                            return Response.ok(response).build();
+                        }).orElse(Response.status(Response.Status.NOT_FOUND).build())
+        ).orElse(Response.status(Response.Status.NOT_FOUND).build());
+    }
+
+    @GET
+    public Response listAll(@PathParam("userId") Long userId) {
+        return userRepository.findByIdOptional(userId).map(
                         user -> {
                             List<PostResponse> posts =
                                     repository.find("user", Sort.by("createdAt", Sort.Direction.Descending), user)

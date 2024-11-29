@@ -1,9 +1,9 @@
 package io.github.joshaby.controller;
 
-import io.github.joshaby.dto.UserRequest;
 import io.github.joshaby.domain.User;
-import io.github.joshaby.repository.UserRepository;
+import io.github.joshaby.dto.UserRequest;
 import io.github.joshaby.errors.dto.ResponseError;
+import io.github.joshaby.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;

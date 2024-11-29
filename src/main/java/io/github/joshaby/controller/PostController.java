@@ -33,8 +33,7 @@ public class PostController {
             post.setUser(user);
             repository.persist(post);
 
-            URI uri = UriBuilder.fromUri(uriInfo.getBaseUri()).path("/users/{id}/posts/{postId}")
-                    .build(user.getId(), post.getId());
+            URI uri = UriBuilder.fromUri(uriInfo.getBaseUri()).path("/users/{id}/posts/{postId}").build(user.getId(), post.getId());
             return Response.created(uri).build();
         }).orElse(Response.status(Response.Status.NOT_FOUND).build());
     }
@@ -42,24 +41,18 @@ public class PostController {
     @GET
     @Path("/{postId}")
     public Response findById(@PathParam("userId") Long userId, @PathParam("postId") Long postId) {
-        return userRepository.findByIdOptional(userId).map(
-                user -> repository.findByIdOptional(postId).map(
-                        post -> {
-                            PostResponse response = new PostResponse(post.getText(), post.getCreatedAt());
-                            return Response.ok(response).build();
-                        }).orElse(Response.status(Response.Status.NOT_FOUND).build())
-        ).orElse(Response.status(Response.Status.NOT_FOUND).build());
+        return userRepository.findByIdOptional(userId).map(user -> repository.findByIdOptional(postId).map(post -> {
+            PostResponse response = new PostResponse(post.getText(), post.getCreatedAt());
+            return Response.ok(response).build();
+        }).orElse(Response.status(Response.Status.NOT_FOUND).build())).orElse(Response.status(Response.Status.NOT_FOUND).build());
     }
 
     @GET
     public Response listAll(@PathParam("userId") Long userId) {
-        return userRepository.findByIdOptional(userId).map(
-                        user -> {
-                            List<PostResponse> posts =
-                                    repository.find("user", Sort.by("createdAt", Sort.Direction.Descending), user)
-                                            .list().stream().map(post -> new PostResponse(post.getText(), post.getCreatedAt())).toList();
-                            return Response.ok(posts).build();
-                        })
-                .orElse(Response.status(Response.Status.NOT_FOUND).build());
+        return userRepository.findByIdOptional(userId).map(user -> {
+            List<PostResponse> posts = repository.find("user", Sort.by("createdAt", Sort.Direction.Descending), user).list()
+                    .stream().map(post -> new PostResponse(post.getText(), post.getCreatedAt())).toList();
+            return Response.ok(posts).build();
+        }).orElse(Response.status(Response.Status.NOT_FOUND).build());
     }
 }

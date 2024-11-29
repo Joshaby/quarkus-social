@@ -34,15 +34,13 @@ public class FollowerController {
             return Response.status(Response.Status.CONFLICT).entity(Map.of("message", "You can't follow yourself")).build();
         }
 
-        return userRepository.findByIdOptional(userId).map(
-                        user -> userRepository.findByIdOptional(request.followerId()).map(userFollower -> {
-                            if (!repository.follows(user, userFollower)) {
-                                Follower follower = new Follower(user, userFollower);
-                                repository.persist(follower);
-                            }
-                            return Response.noContent().build();
-                        }).orElse(Response.status(Response.Status.NOT_FOUND).build()))
-                .orElse(Response.status(Response.Status.NOT_FOUND).build());
+        return userRepository.findByIdOptional(userId).map(user -> userRepository.findByIdOptional(request.followerId()).map(userFollower -> {
+            if (!repository.follows(user, userFollower)) {
+                Follower follower = new Follower(user, userFollower);
+                repository.persist(follower);
+            }
+            return Response.noContent().build();
+        }).orElse(Response.status(Response.Status.NOT_FOUND).build())).orElse(Response.status(Response.Status.NOT_FOUND).build());
     }
 
     @GET
@@ -53,12 +51,23 @@ public class FollowerController {
             List<Follower> followers = repository.findByUser(user);
             List<UserResponse> followersResponse = new ArrayList<>();
             followers.forEach(follower -> {
-                UserResponse userResponse = new UserResponse(
-                        follower.getId().getFollower().getId(), follower.getId().getFollower().getName());
+                UserResponse userResponse = new UserResponse(follower.getId().getFollower().getId(), follower.getId().getFollower().getName());
                 followersResponse.add(userResponse);
             });
 
             return Response.ok(new FollowerResponse(followersResponse.size(), followersResponse)).build();
         }).orElse(Response.status(Response.Status.NOT_FOUND).build());
+    }
+
+    @DELETE
+    @Transactional
+    public Response unfollowUser(@PathParam("userId") Long userId, @QueryParam("followerId") Long followerId) {
+
+        return userRepository.findByIdOptional(userId).map(user -> userRepository.findByIdOptional(followerId).map(follower -> {
+
+            repository.delete("id", new Follower.FollowerPK(user, follower));
+
+            return Response.noContent().build();
+        }).orElse(Response.status(Response.Status.NOT_FOUND).build())).orElse(Response.status(Response.Status.NOT_FOUND).build());
     }
 }

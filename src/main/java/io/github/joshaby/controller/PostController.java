@@ -60,11 +60,11 @@ public class PostController {
     @GET
     public Response listAll(@PathParam("userId") Long userId, @HeaderParam("followerId") Long followerId) {
 
-        if (followerId == null) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(Map.of("message", "Inexistent followerId")).build();
-        }
-
         return userRepository.findByIdOptional(userId).map(user -> {
+
+            if (followerId == null) {
+                return Response.status(Response.Status.BAD_REQUEST).entity(Map.of("message", "Inexistent followerId")).build();
+            }
 
             Optional<User> follower = userRepository.findByIdOptional(followerId);
             if (follower.isPresent()) {

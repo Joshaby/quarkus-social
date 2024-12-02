@@ -22,7 +22,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final static Integer UNPROCESSABLE_ENTITY = 422;
+    public final static Integer UNPROCESSABLE_ENTITY = 422;
 
     private final UserRepository repository;
 

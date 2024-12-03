@@ -1,5 +1,18 @@
 version: '3.7'
 services:
+  quarkus-social:
+    container_name: quarkus-social
+    build:
+      dockerfile: src/main/docker/Dockerfile.native
+    environment:
+      POSTGRES_URL: postgres-quarkus-social
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234567
+    ports:
+      - "8080:8080"
+    networks:
+      - network-quarkus-social
+
   postgres-quarkus-social:
     image: postgres:17.2-alpine
     container_name: postgres-quarkus-social

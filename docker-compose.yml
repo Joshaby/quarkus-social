@@ -3,7 +3,7 @@ services:
   quarkus-social:
     container_name: quarkus-social
     build:
-      dockerfile: src/main/docker/Dockerfile.native
+      dockerfile: src/main/docker/Dockerfile.jvm
     environment:
       POSTGRES_URL: postgres-quarkus-social
       POSTGRES_USER: postgres
